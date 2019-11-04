@@ -7,8 +7,9 @@ def find_flats():
     soup = BeautifulSoup(result.text, 'html.parser')
 
     necessary_block = soup.find('div', {'class': 'rel listHandler'})
-    # print(necessary_block)
-    for a in necessary_block.find_all('tr', {'class': 'offer-wrapper'}):
+    print(necessary_block)
+    for a in necessary_block.find_all('a', {'class': 'marginright5 link linkWithHash detailsLink'}):
+        print(a)
         yield a['href']
 
 
@@ -17,7 +18,7 @@ def list_flat(url: str):
     soup = BeautifulSoup(res.text, 'html.parser')
     title = soup.find_all('h1')[0].text
 
-    title = title.replace('\n', '').replace('    ', '')
+    title = title.replace('\n', '').replace('\t', '').replace('/', '.')
     post_content = soup.find('div', {'class': 'clr lheight20 large'}).text
     price = soup.find('strong', {'class': 'xxxx-large not-arranged'}).text
 
